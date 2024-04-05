@@ -1,0 +1,16 @@
+
+<h3>ViewTodo</h3>
+
+<div class="container">
+
+<div class="mb-md-3  ml-md-3   col-lg-8"  *ngFor="let task of tasks" [ngClass]="{'orange-row': task.status === 'INPROGRESS', 'green-row': task.status === 'COMPLETE', 'red-row': task.status === 'NOTSTART'}">
+<p><span>Title</span><span> &nbsp; : &nbsp; </span>{{task.title}}</p>
+<p><span>Description</span><span> &nbsp; : &nbsp; </span>{{task.description}}</p>
+<p><span>CreatedBy</span><span> &nbsp; : &nbsp; </span>{{task.createdBy}}</p>
+<p><span>DueDate</span><span> &nbsp; : &nbsp; </span>{{task.dueDate}}</p>
+<p><span>Status</span><span> &nbsp; : &nbsp; </span>{{task.status}}</p>
+
+<button  class="btn  btn-danger" (click)="deleteTodo(task.id)">Delete</button>
+<span> <button type="submit" class="btn btn-primary "  routerLink="/Updatetodo/{{task.id}}">Update</button></span>
+</div>
+</div>

@@ -1,0 +1,83 @@
+
+<div class="container mt-3">
+  <input type="text" class="form-control mr-sm-1" placeholder="Enter title..." [(ngModel)]="title">
+
+  <select class="form-control mr-sm-1  mt-2" [(ngModel)]="status">
+    <option value="">Select Status</option>
+    <option value="COMPLETE">COMPLETE</option>
+    <option value="INPROGRESS">INPROGRESS</option>
+    <option value="NOTSTART">NOTSTART</option>
+    <!-- Add more options as needed -->
+  </select>
+  <!-- <button class="btn btn-outline-success my-2 my-sm-2" (click)="getTodoTitle()">Search</button> -->
+
+  <button class="btn btn-outline-success my-2 my-sm-2" (click)="searchTodos()">Search</button>
+</div>
+
+
+
+<div class="container">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>CreatedBy</th>
+        <th>DueDate</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      <ng-container *ngIf="search && search.length > 0; else showAllData">
+        <div  *ngFor="let data of search" [ngClass]="{ 
+                         'orange-row': 
+                         data.status.toLowerCase() === 'inprogress', 'green-row': 
+                         data.status.toLowerCase() === 'complete', 'red-row':
+                          data.status.toLowerCase() === 'notstart'}">
+
+
+
+          <td>{{data.title}}</td>
+          <td>{{data.description}}</td>
+          <td>{{data.createdBy}}</td>
+          <td>{{data.dueDate}}</td>
+          <td>{{data.status}}</td>
+          <td>
+            <button class="btn  btn-danger">Delete</button>
+            <span> <button type="submit" class="btn btn-primary "
+                routerLink="/Updatetodo/{{data.id}}">Update</button></span>
+          </td>
+        </div>
+
+      </ng-container>
+
+
+      <ng-template #showAllData>
+        <tr  *ngFor="let data of allData" [ngClass]="{'orange-row':
+           data.status.toLowerCase() === 'inprogress', 'green-row': 
+           data.status.toLowerCase() === 'complete', 'red-row': 
+           data.status.toLowerCase() === 'notstart'}">
+
+
+          <td>{{data.title}}</td>
+          <td>{{data.description}}</td>
+          <td>{{data.createdBy}}</td>
+          <td>{{data.dueDate}}</td>
+          <td>{{data.status}}</td>
+          <td><button class="btn  btn-danger" (click)="deleteTodo(data.id)">Delete</button>
+            <span> <button type="submit" class="btn btn-primary "
+                routerLink="/Updatetodo/{{data.id}}">Update</button></span>
+          </td>
+      
+      </ng-template>
+
+
+    </tbody>
+  </table>
+</div>
+
+
+
